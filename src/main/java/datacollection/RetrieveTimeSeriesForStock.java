@@ -1,17 +1,16 @@
-package testing;
+package datacollection;
 
 import java.util.List;
 import java.util.Map;
 
 import org.patriques.AlphaVantageConnector;
 import org.patriques.TimeSeries;
-import org.patriques.input.timeseries.Interval;
 import org.patriques.input.timeseries.OutputSize;
 import org.patriques.output.AlphaVantageException;
-import org.patriques.output.timeseries.IntraDay;
+import org.patriques.output.timeseries.Daily;
 import org.patriques.output.timeseries.data.StockData;
 
-public class TestAlphaVantage {
+public class RetrieveTimeSeriesForStock {
 	public static void main(String[] args) {
 		String apiKey = "ERWJH2Q6550HFABI";
 		int timeout = 3000;
@@ -19,7 +18,8 @@ public class TestAlphaVantage {
 		TimeSeries stockTimeSeries = new TimeSeries(apiConnector);
 
 		try {
-			IntraDay response = stockTimeSeries.intraDay("AAPL", Interval.ONE_MIN, OutputSize.COMPACT);
+			Daily response = stockTimeSeries.daily("AAPL", OutputSize.COMPACT);
+
 			Map<String, String> metaData = response.getMetaData();
 			System.out.println("Information: " + metaData.get("1. Information"));
 			System.out.println("Stock: " + metaData.get("2. Symbol"));
